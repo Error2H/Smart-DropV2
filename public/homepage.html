@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        * {
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif !important;
+          }
+          body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #e0e0e0;
+            overflow: hidden;
+            font-size: 14px;
+            font-family: 'Kanit', sans-serif !important;
+          }
+          .inspiration {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 13px;
+            color: #969696;
+          }
+          .inspiration img {
+            width: 60px;
+          }
+          .center {
+            position: relative;
+            top: 50%;
+            left: 48%;
+            display: inline-block;
+            width: 355px;
+            height: 585px;
+            border-radius: 15px;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            background-image: linear-gradient(to top right, #fdbb76, #f0dca7);
+          }
+          @media screen and (max-height: 500px) {
+            .center {
+              transition: transform 0.5s;
+              transform: translate(-50%, -50%) scale(0.8);
+            }
+          }
+          .center .ear {
+            position: absolute;
+            top: -100px;
+            width: 210px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #243946;
+          }
+          .center .ear.ear--left {
+            left: -135px;
+          }
+          .center .ear.ear--right {
+            right: -135px;
+          }
+          .center .face {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+            height: 150px;
+            margin: 80px auto 10px;
+            --rotate-head: 0deg;
+            transform: rotate(var(--rotate-head));
+            transition: transform 0.2s;
+            transform-origin: center 20px;
+          }
+          .center .eye {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: #243946;
+          }
+          .center .eye.eye--left {
+            margin-right: 40px;
+          }
+          .center .eye.eye--right {
+            margin-left: 40px;
+          }
+          .center .eye .glow {
+            position: relative;
+            top: 3px;
+            right: -12px;
+            width: 12px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #fff;
+            transform: rotate(38deg);
+          }
+          .center .nose {
+            position: relative;
+            top: 30px;
+            transform: scale(1.1);
+          }
+          .center .nose .glow {
+            position: absolute;
+            top: 3px;
+            left: 32%;
+            width: 15px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #476375;
+          }
+          .center .mouth {
+            position: relative;
+            margin-top: 45px;
+          }
+          .center svg.smile {
+            position: absolute;
+            left: -28px;
+            top: -19px;
+            transform: scaleX(1.1);
+            stroke: #243946;
+          }
+          .center .mouth-hole {
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 60px;
+            height: 15px;
+            border-radius: 50%/100% 100% 0% 0;
+            transform: rotate(180deg);
+            background-color: #243946;
+            z-index: -1;
+          }
+          .center .tongue {
+            position: relative;
+            top: 5px;
+            width: 30px;
+            height: 20px;
+            background-color: #ffd7dd;
+            transform-origin: top;
+            transform: rotateX(60deg);
+          }
+          .center .tongue.breath {
+            -webkit-animation: breath 0.3s infinite linear;
+                    animation: breath 0.3s infinite linear;
+          }
+          .center .tongue-top {
+            position: absolute;
+            bottom: -15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: #ffd7dd;
+          }
+          .center .line {
+            position: absolute;
+            top: 0;
+            width: 30px;
+            height: 5px;
+            background-color: #fcb7bf;
+          }
+          .center .median {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 25px;
+            border-radius: 5px;
+            background-color: #fcb7bf;
+          }
+          .center .hands {
+            position: relative;
+          }
+          .center .hands .hand {
+            position: absolute;
+            top: -6px;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            z-index: 1;
+          }
+          .center .hands .hand--left {
+            left: 90px;
+          }
+          .center .hands .hand--left.hide {
+            transform: translate(2px, -155px) rotate(-160deg);
+          }
+          .center .hands .hand--left.peek {
+            transform: translate(0px, -120px) rotate(-160deg);
+          }
+          .center .hands .hand--right {
+            left: 210px;
+          }
+          .center .hands .hand--right.hide {
+            transform: translate(-6px, -155px) rotate(160deg);
+          }
+          .center .hands .hand--right.peek {
+            transform: translate(-4px, -120px) rotate(160deg);
+          }
+          .center .hands .finger {
+            position: relative;
+            z-index: 0;
+          }
+          .center .hands .finger .bone {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #243946;
+            border-bottom: none;
+            border-top: none;
+            background-color: #fac555;
+          }
+          .center .hands .finger .nail {
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 20px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #243946;
+            background-color: #fac555;
+            z-index: -1;
+          }
+          .center .hands .finger:nth-child(1),
+          .center .hands .finger:nth-child(3) {
+            left: 4px;
+            z-index: 1;
+          }
+          .center .hands .finger:nth-child(1) .bone,
+          .center .hands .finger:nth-child(3) .bone {
+            height: 10px;
+          }
+          .center .hands .finger:nth-child(3) {
+            left: -4px;
+          }
+          .center .hands .finger:nth-child(2) {
+            top: -5px;
+            z-index: 2;
+          }
+          .center .hands .finger:nth-child(1) .nail,
+          .center .hands .finger:nth-child(3) .nail {
+            top: 0px;
+          }
+          .center .login {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+          }
+          .center .login label {
+            position: relative;
+            padding: 0 20px;
+          }
+          .center .login label .fa {
+            position: absolute;
+            top: 40%;
+            left: 35px;
+            color: #bbb;
+          }
+          .center .login label .fa:before {
+            position: relative;
+            left: 1px;
+          }
+          .center .login input,
+          .center .login .login-button {
+            width: 100%;
+            height: 35px;
+            border: none;
+            border-radius: 30px;
+          }
+          .center .login input {
+            padding: 0 20px 0 40px;
+            margin: 5px 0;
+            box-shadow: none;
+            outline: none;
+          }
+          .center .login input::-moz-placeholder {
+            color: #ccc;
+          }
+          .center .login input:-ms-input-placeholder {
+            color: #ccc;
+          }
+          .center .login input::placeholder {
+            color: #ccc;
+          }
+          .center .login input.password {
+            padding: 0 90px 0 40px;
+          }
+          .center .login .password-button {
+            position: absolute;
+            top: 9px;
+            right: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 80px;
+            height: 27px;
+            border-radius: 30px;
+            border: none;
+            outline: none;
+            background-color: #243946;
+            color: #fff;
+            font-size: 12px;
+          }
+          .center .login .password-button:active {
+            transform: scale(0.95);
+          }
+          .center .login .login-button {
+            width: calc(100% - 40px);
+            margin: 20px 20px 0;
+            outline: none;
+            background-color: #243946;
+            color: #fff;
+            transition: transform 0.1s;
+          }
+          .center .login .login-button:active {
+            transform: scale(0.95);
+          }
+          .center .social-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+          }
+          .center .social-buttons .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 35px;
+            height: 35px;
+            margin: 0 10px;
+            border-radius: 50%;
+            background-color: #243946;
+            color: #fff;
+            font-size: 18px;
+          }
+          .center .social-buttons .social:active {
+            transform: scale(0.95);
+          }
+          .center .footer {
+            text-align: center;
+            margin-top: 15px;
+          }
+          @-webkit-keyframes breath {
+            0%, 100% {
+              transform: rotateX(0deg);
+            }
+            50% {
+              transform: rotateX(60deg);
+            }
+          }
+          @keyframes breath {
+            0%, 100% {
+              transform: rotateX(0deg);
+            }
+            50% {
+              transform: rotateX(60deg);
+            }
+          }
+          
+          /*Goole Captcha*/
+          .rc-anchor-light, .rc-anchor-normal{
+            border-radius: 15px;
+          }
+          .rc-anchor-light{
+            background: #f9f9f9;
+            color: #000;
+          }
+          .rc-anchor-normal{
+            height: 74px;
+            width: 300px;
+          }
+          .rc-anchor{
+            border-radius: 3px;
+          }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class="ear ear--left"></div>
+        <div class="ear ear--right"></div>
+        <div class="face">
+          <div class="eyes">
+            <div class="eye eye--left">
+              <div class="glow"></div>
+            </div>
+            <div class="eye eye--right">
+              <div class="glow"></div>
+            </div>
+          </div>
+          <div class="nose">
+            <svg width="38.161" height="22.03">
+              <path d="M2.017 10.987Q-.563 7.513.157 4.754C.877 1.994 2.976.135 6.164.093 16.4-.04 22.293-.022 32.048.093c3.501.042 5.48 2.081 6.02 4.661q.54 2.579-2.051 6.233-8.612 10.979-16.664 11.043-8.053.063-17.336-11.043z" fill="#243946"></path>
+            </svg>
+            <div class="glow"></div>
+          </div>
+          <div class="mouth">
+            <svg class="smile" viewBox="-2 -2 84 23" width="84" height="23">
+              <path d="M0 0c3.76 9.279 9.69 18.98 26.712 19.238 17.022.258 10.72.258 28 0S75.959 9.182 79.987.161" fill="none" stroke-width="3" stroke-linecap="square" stroke-miterlimit="3"></path>
+            </svg>
+            <div class="mouth-hole"></div>
+            <div class="tongue breath">
+              <div class="tongue-top"></div>
+              <div class="line"></div>
+              <div class="median"></div>
+            </div>
+          </div>
+        </div>
+        <div class="hands">
+          <div class="hand hand--left">
+            <div class="finger">
+              <div class="bone"></div>
+              <div class="nail"></div>
+            </div>
+            <div class="finger">
+              <div class="bone"></div>
+              <div class="nail"></div>
+            </div>
+            <div class="finger">
+              <div class="bone"></div>
+              <div class="nail"></div>
+            </div>
+          </div>
+          <div class="hand hand--right">
+            <div class="finger">
+              <div class="bone"></div>
+              <div class="nail"></div>
+            </div>
+            <div class="finger">
+              <div class="bone"></div>
+              <div class="nail"></div>
+            </div>
+            <div class="finger">
+              <div class="bone"></div>
+              <div class="nail"></div>
+            </div>
+          </div>
+        </div>
+        <div class="login">
+          <label>
+            <div class="fa fa-phone"></div>
+            <input class="username" type="tel" id="phoneNumber" name="phoneNumber" pattern="[0-9]" autocomplete="on" placeholder="เบอร์โทรศัพท์"/>
+          </label>
+          <label>
+            <div class="fa fa-commenting"></div>
+            <input class="password" type="tel" autocomplete="off" placeholder="รหัสยืนยัน"/>
+            <button type="button" id="getCode" class="password-button">ส่งรหัสยืนยัน</button>  
+          </label>
+          <label>
+            <br>
+            <div id="recaptcha-container"></div>
+          </label>
+         
+          <button type="button" id="signInWithPhone" class="login-button">เข้าสู่ระบบ</button>
+        </div>
+        <div class="social-buttons">
+          <div class="social">
+            <div class="fa fa-wechat"></div>
+          </div>
+          <div class="social">
+            <div class="fa fa-weibo"></div>
+          </div>
+          <div class="social">
+            <div class="fa fa-paw"></div>
+          </div>
+        </div>
+        <div class="footer">ย้อนกลับ</div>
+        <script src="src/js/index.js"></script>
+
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+      <script src="/__/firebase/6.2.4/firebase-app.js"></script>
+      <script src="/__/firebase/6.2.4/firebase-auth.js"></script>
+       <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#reserved-urls -->
+        <script type="module">
+          // Import the functions you need from the SDKs you need
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+          import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+          // TODO: Add SDKs for Firebase products that you want to use
+          // https://firebase.google.com/docs/web/setup#available-libraries
+        
+          // Your web app's Firebase configuration
+          // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+          const firebaseConfig = {
+            apiKey: "AIzaSyBGHYVjtQNRZIvb0rhUeV6g0ByVAGmidmQ",
+            authDomain: "smartdrop-itlp2022.firebaseapp.com",
+            databaseURL: "https://smartdrop-itlp2022-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "smartdrop-itlp2022",
+            storageBucket: "smartdrop-itlp2022.appspot.com",
+            messagingSenderId: "68583609225",
+            appId: "1:68583609225:web:c14789335702c55eb60758",
+            measurementId: "G-88E68YDK6M"
+          };
+        
+          // Initialize Firebase
+          const app = initializeApp(firebaseConfig);
+          const analytics = getAnalytics(app);
+        </script>  
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+        
+    <script>
+      const phoneContainer = document.querySelector('.phone-container');
+      const authenticationMethod3 = document.getElementById('method3');
+      const verification__fields = document.getElementById('phoneNumber');
+      const codeField = document.getElementById('code');
+      const labels = document.getElementsByTagName('label');
+      const signInWithPhoneButton = document.getElementById('signInWithPhone');
+      const getCodeButton = document.getElementById('getCode');
+      const failureModal = document.querySelector('.failure');
+      
+      const auth = firebase.auth();
+
+    
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+
+      recaptchaVerifier.render().then(widgetId => {
+        window.recaptchaWidgetId = widgetId;
+      })
+
+      const sendVerificationCode = () => {
+        const phoneNumber = "+66"+verification__fields.value;
+       const appVerifier = window.recaptchaVerifier;
+
+        auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+        .then(confirmationResult => {
+          const sentCodeId = confirmationResult.verificationId;
+          signInWithPhoneButton.addEventListener('click', () => signInWithPhone(sentCodeId));
+        })
+      }
+
+      const signInWithPhone = sentCodeId => {
+        const code = codeField.value;
+        const credential = firebase.auth.PhoneAuthProvider.credential(sentCodeId, code);
+        auth.signInWithCredential(credential)
+        .then(() => {
+          localStorage.setItem("phone", verification__fields.value);
+          window.location.assign('profile.html');
+        })
+        .catch(error => {
+          console.error(error);
+        })
+      }
+      getCodeButton.addEventListener('click', sendVerificationCode);
+
+      auth.onAuthStateChanged(user => {
+        if(user)
+          window.location.assign('profile.html');
+      })
+
+    </script>
+</body>
+</html>
