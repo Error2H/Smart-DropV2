@@ -8,23 +8,18 @@
       <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
         <!--<link rel="stylesheet" href="./style/profile.css">-->
         <style>
-          * {
-            box-sizing: border-box;
-          }
-          @import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-          body{
-              font-family: 'Prompt', sans-serif !important;
-            }
+          @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      * {
+          box-sizing: border-box;
+          font-family: 'Kanit', sans-serif !important;
+        }
           body {
-            /*background-image: linear-gradient(to right top, #273358, #4136da, #3d3ba8, #71a9d6, #538fee);*/
-            background-color: #293554;           
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-          
-            min-height: 100vh;
-            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #e0e0e0;
+            overflow: hidden;
+            font-size: 14px;
+            font-family: 'Kanit', sans-serif !important;
           }
           
           h3 {
@@ -42,17 +37,21 @@
           }
           
           .card-container {
-            background-color: #ffffff;
+            background-image: linear-gradient(to top right, #fdbb76, #f0dca7);
             border-radius: 25px;
             box-shadow: 10px 10px 15px rgba(0,0,0,0.35);
             color: #444446;
-            padding: 30px 0 30px;
+            padding: 30px 0 0;
             position: relative;
-            width: 400px;
             max-width: 100%;
             text-align: center;
-            margin: 20px 0;
+            margin: 20px 20px 20px 1px;
             overflow: hidden;
+          } @media screen and (max-height: 500px) {
+            .card-container {
+              transition: transform 0.5s;
+              transform: translate(0%, -5%) scale(0.8);
+            }
           }
           
           .card-container .pro {
@@ -81,7 +80,7 @@
             font-family: Montserrat, sans-serif;
             font-weight: 500;
             padding: 10px 25px;
-            margin: 5px;
+            margin: 20px;
           }
           button.primary.red {
             background-color: #aa3838 !important;
@@ -138,18 +137,18 @@
           }
           
           .card-container input{
-            padding: 24px 200px 14px 20px;
+            padding: 24px 20px 14px 20px;
             width: 85%;
             outline: none;
             border: none;
             font-size: 16px;
             border-radius: 8px;
-            background: rgba(209, 209, 209, 0.644);
+            background: rgb(255, 255, 255);
             transition: background-color 160ms;
           }
           
           .card-container input:focus {
-            background: var(--grey-200);
+            background: rgba(235, 235, 235, 0.582);
           }
           
           .card-container .input-active label {
@@ -163,7 +162,7 @@
     
     <div class="card-container">
           <div>
-            <img src="./img/edit.svg">
+            <img id ="photoHolder" src="./src/img/avatar.png" alt="Profile picture">
             <!--https://www.visualpharm.com/free-icon-->
           </div>
           <div>

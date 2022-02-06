@@ -8,24 +8,37 @@
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <!--<link rel="stylesheet" href="./style/profile.css">-->
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
       * {
-        box-sizing: border-box;
-      }
-      
-      body {
-        /*background-image: linear-gradient(to right top, #273358, #4136da, #3d3ba8, #71a9d6, #538fee);*/
-        background: #212534;
-        font-family: Montserrat, sans-serif;
-        
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      
-        min-height: 100vh;
-        margin: 0;
-      }
-      
+          box-sizing: border-box;
+          font-family: 'Kanit', sans-serif !important;
+        }
+        body {
+          width: 100vw;
+          height: 100vh;
+          background-color: #e0e0e0;
+          overflow: hidden;
+          font-size: 14px;
+          font-family: 'Kanit', sans-serif !important;
+        }
+        .center {
+          position: relative;
+          top: 50%;
+          left: 48%;
+          display: inline-block;
+          width: 355px;
+          height: 585px;
+          border-radius: 15px;
+          transform: translate(-50%, -50%);
+          overflow: hidden;
+          background-image: linear-gradient(to top right, #fdbb76, #f0dca7);
+        }
+        @media screen and (max-height: 500px) {
+          .center {
+            transition: transform 0.5s;
+            transform: translate(-50%, -50%) scale(0.8);
+          }
+        }
       h3 {
         margin: 10px 0;
       }
@@ -41,17 +54,21 @@
       }
       
       .card-container {
-        background-color: #ffffff;
+        background-image: linear-gradient(to top right, #fdbb76, #f0dca7);
         border-radius: 25px;
         box-shadow: 10px 10px 15px rgba(0,0,0,0.35);
         color: #444446;
         padding: 30px 0 0;
         position: relative;
-        width: 350px;
         max-width: 100%;
         text-align: center;
-        margin: 20px 0;
+        margin: 20px 20px 20px 0px;
         overflow: hidden;
+      } @media screen and (max-height: 500px) {
+        .card-container {
+          transition: transform 0.5s;
+          transform: translate(-50%, -50%) scale(0.8);
+        }
       }
       
       .card-container .pro {
@@ -67,11 +84,10 @@
       }
       
       .card-container img {
-        border: 1px solid #293554;
         border-radius: 50%;
-        padding: 7px;
-        height: 150px;
-        width: 150px;
+        padding: 1px;
+        height: 200px;
+        width: 200px;
       }
       
       button.primary {
@@ -92,7 +108,6 @@
       }
       
       .skills {
-        background-color: #ffffff;
         text-align: left;
         padding: 15px;
       }
@@ -116,7 +131,8 @@
 <body>
   <div class="card-container">
     <!--<span class="pro">PRO</span> -->
-    <img id ="photoHolder" src="./img/avatar.svg" alt="Profile picture">
+    <img id ="photoHolder" src="./src/img/avatar.png" alt="Profile picture">
+    <h1 style="margin-top: -20px !important;">Smart Drop</h1>
     <h3>ยินดีต้อนรับ : <label id="displayNameHolder">ผู้ใช้งาน</label></h3>
     <p id="displayphoneNumber"></p>
       <p id="phone"></p>
@@ -124,10 +140,10 @@
       <button class="primary" id="modifyAccount">แก้ไขโปรไฟล์</button>
       <button class="primary red" id="logOut">ออกจากระบบ</button>
     </div>
-    <div class="skills">
+    <div class="skills"><center>
         <h3>ตู้พัสดุที่ผู้ใช้งานฝากไว้ :</h3><br>
         <ul>
-          <center>
+          
             <button class="primary ghost" id="box1">เปิดตู้ที่ 1 </button>
             <button class="primary ghost" id="box2">เปิดตู้ที่ 2 </button>
             <button class="primary ghost" id="box3">เปิดตู้ที่ 3 </button>
