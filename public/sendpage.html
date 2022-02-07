@@ -8,13 +8,36 @@
     <title>ส่งของ | Smart Drop</title>
 </head>
 <style media="screen">
-    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic);
-    body {
-      font-family: "Open Sans";
-      line-height: 200%;
-      background-color: #212534 !important;
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  * {
+      box-sizing: border-box;
+      font-family: 'Kanit', sans-serif !important;
+    }body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #e0e0e0;
+      overflow: hidden;
+      font-size: 14px;
+      font-family: 'Kanit', sans-serif !important;
     }
-    
+    .center {
+      position: relative;
+      top: 50%;
+      left: 48%;
+      display: inline-block;
+      width: 355px;
+      height: 585px;
+      border-radius: 15px;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      background-image: linear-gradient(to top right, #fdbb76, #f0dca7);
+    }
+    @media screen and (max-height: 500px) {
+      .center {
+        transition: transform 0.5s;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    }
     .main {
       width: 800px;
       margin: 160px auto;
@@ -43,7 +66,7 @@
     
     p {
       font-size: 18px;
-      color: #ffd5df;
+      color: #293554;
     }
     
     .btn {
@@ -52,7 +75,7 @@
       display: inline-block;
       -webkit-transition: all linear 0.15s;
       transition: all linear 0.15s;
-      border-radius: 3px;
+      border-radius: 10px;
       background-color: #2e773a !important;
       font-size: 22px;
       font-weight: bold;
@@ -66,7 +89,7 @@
       display: inline-block;
       -webkit-transition: all linear 0.15s;
       transition: all linear 0.15s;
-      border-radius: 3px;
+      border-radius: 10px;
       background-color: #435469 !important;
       font-size: 22px;
       font-weight: bold;
@@ -164,7 +187,7 @@
       }
       
        input{
-        padding: 24px 200px 14px 20px;
+        padding: 24px 20px 14px 20px;
         width: 85%;
         outline: none;
         border: none;
@@ -184,18 +207,18 @@
 </style>
 <body>
     
-    <div class="main">
-        
+    <div class="center">
+        <center>
         <h1>Smart Drop</h1>
         <p>
             - โปรดเช็คเบอร์โทรศัพท์ของผู้รับพัสดุให้ถูกต้อง
         </p>
 
-        <input type="tel" id="phone" class="" placeholder="ใส่เบอร์ผู้รับ" required>
+        <input type="tel" id="phone" class="" placeholder="กรอกเบอร์ผู้รับ" required>
         <button class="btn green" id="sender">ยืนยัน</button>
         <a href="index.html"><button class="btn backbtn" >ย้อนกลับ</button></a>
       </div>
-      
+    </center>
     <script>
         $(document).ready(function() {
             $('.popup-btn').click(function(e) {

@@ -6,28 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รับสำเร็จ | Smart Drop</title>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Lato:400,700");
-html {
-  display: grid;
-  min-height: 100%;
-}
-body {
-  display: grid;
-  overflow: hidden;
-  font-family: "Lato", sans-serif;
-  text-transform: uppercase;
-  text-align: center;
-  background: #212534;
-}
+      @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+      * {
+          box-sizing: border-box;
+          font-family: 'Kanit', sans-serif !important;
+        }
+          html {
+            display: grid;
+            min-height: 100%;
+          }
+          body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #e0e0e0;
+            overflow: hidden;
+            font-size: 14px;
+            font-family: 'Kanit', sans-serif !important;
+          }
 
-#container {
-  position: relative;
-  margin: auto;
-  overflow: hidden;
-  width: 1150px;
-  height: 400px;
-  justify-content: center;
-}
+          #container {
+            position: relative;
+            top: 50%;
+            left: 68%;
+            display: inline-block;
+            width: 1100px;
+            height: 400px;
+            border-radius: 15px;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+          }
+          @media screen and (max-height: 500px) {
+            #container {
+              transition: transform 0.5s;
+              transform: translate(-50%, -50%) scale(0.8);
+            }
+          }
 
 h1 {
   font-size: 1.2em;
