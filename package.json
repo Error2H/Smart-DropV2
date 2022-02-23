@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "firebase": "^9.6.6"
+    "@angular/core": "^13.2.3",
+    "@angular/forms": "^13.2.3",
+    "@vonage/server-sdk": "^2.10.10",
+    "angularfire2": "^5.4.2",
+    "firebase": "^9.6.6",
+    "twilio": "^3.74.0"
   }
 }

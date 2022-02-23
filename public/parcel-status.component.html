@@ -1,0 +1,37 @@
+<div *ngIF="order | async as phone">
+    <h1>Phone Status: 
+    <span class="tag is-large">
+        [ngClass]="{
+                    'is-dark'       : phone.status == 'submitted',
+                    'is-primary'    : phone.status == 'on the way',
+                    'is-success'    : phone.status == 'delivered'
+                    }">
+
+        {{ phone.status}}
+    </span>
+    </h1>
+
+    <ul>
+        <li>Phone Number: {{ phone.$key}}</li>
+    </ul>
+
+    <h1>Get Updates via Text Message</h1>
+
+    <form [formGroup]="phoneNumber" (ngSubmit)="updatePhoneNumber()" novalidate>
+        <input type="text" formControlName="country" placeholder="6">
+        <input type="text" formControlName="area" placeholder="680">
+        <input type="text" formControlName="prefix" placeholder="313">
+        <input type="text" formControlName="line" placeholder="1282">
+
+        <input type="submit"
+                value="Get SMS Updates"
+                [disabled]="phoneNumber.invalid">
+
+    </form>
+
+    <p *ngIF="phoneNumber.invalid && phoneNumber.touched">
+        That's not a valid phone number.
+    </p>
+
+    Updates a parcel will be text to {{ phone.phoneNumber }}
+</div>

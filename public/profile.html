@@ -142,7 +142,7 @@
             <button class="primary ghost" id="box1">เปิดตู้ที่ 1 </button>
             <button class="primary ghost" id="box2">เปิดตู้ที่ 2 </button>
             <button class="primary ghost" id="box3">เปิดตู้ที่ 3 </button>
-            <button class="primary ghost" id="box4">เปิดตู้ที่ 4 </button>
+            <!--<button class="primary ghost" id="box4">เปิดตู้ที่ 4 </button> -->
           </center>
         </ul>
     </div>
@@ -204,7 +204,7 @@
         var box1btn = document.getElementById("box1");
         var box2btn = document.getElementById("box2");
         var box3btn = document.getElementById("box3");
-        var box4btn = document.getElementById("box4");
+        //var box4btn = document.getElementById("box4");
         var textempty = document.getElementById("textempty");
         //document.getElementById("phone").innerHTML = phonereplace;
         const refdb = ref(db); 
@@ -248,7 +248,7 @@
         });
 
          //btn box4
-         get(child(refdb,"lockers/box4")).then((box4)=>{
+         /*get(child(refdb,"lockers/box4")).then((box4)=>{
           if(box4.exists()){
             if(box4.val().owner_p != phonereplace || box4.val().status_item == 0){
               box4btn.remove();
@@ -258,7 +258,7 @@
         })
         .catch((error)=>{
           alert(error);
-        });
+        });*/
         
         //const phoneNumber = document.getElementById("displayphoneNumber");
 
@@ -337,7 +337,7 @@
             });
           }
           //box4
-          function OpenBox4(){
+          /*function OpenBox4(){
             const openref = ref(db);
             get(child(openref,"lockers/box4")).then((op4)=>{
               if(op4.exists()){
@@ -359,13 +359,13 @@
             .catch((error)=>{
               alert(error);
             });
-          }
+          }*/
 
         //Event
         box1btn.addEventListener('click',OpenBox1);
         box2btn.addEventListener('click',OpenBox2);
         box3btn.addEventListener('click',OpenBox3);
-        box3btn.addEventListener('click',OpenBox4);
+        //box3btn.addEventListener('click',OpenBox4);
       </script>
    <!-- Initialize Firebase -->
    <script src="/__/firebase/init.js"></script>

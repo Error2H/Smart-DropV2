@@ -280,6 +280,7 @@
                             .then(()=>{
                                 localStorage.setItem("box","box1");
                                 localStorage.setItem("num","1");
+                                localStorage.setItem("phoneNumber",phone.value);
                                 window.location.assign('loading.html');
                             })
                             .catch((error)=>{
@@ -296,6 +297,7 @@
                                     .then(()=>{
                                         localStorage.setItem("box","box2");
                                         localStorage.setItem("num","2");
+                                        localStorage.setItem("phoneNumber",phone.value);
                                         window.location.assign('loading.html');
                                     })
                                     .catch((error)=>{
@@ -312,35 +314,14 @@
                                                 .then(()=>{
                                                     localStorage.setItem("box","box3");
                                                     localStorage.setItem("num","3");
+                                                    localStorage.setItem("phoneNumber",phone.value);
                                                     window.location.assign('loading.html');
                                                 })
                                                 .catch((error)=>{
                                                     alert(error);
                                                 });
                                                 }else{
-                                                    get(child(lockerRef,"lockers/box4")).then((box4)=>{
-                                                      if(box4.exists()){
-                                                        if(box4.val().status_item==0){
-                                                            update(ref(db,"lockers/box4"),{
-                                                            owner_p: phone.value,
-                                                            status_sw: number_sw
-                                                           })
-                                                            .then(()=>{
-                                                            localStorage.setItem("box","box4");
-                                                            localStorage.setItem("num","4");
-                                                            window.location.assign('loading.html');
-                                                            })
-                                                            .catch((error)=>{
-                                                            alert(error);
-                                                        });
-                                                        }else{
-                                                          alert("ตู้เต็มแล้ว!");
-                                                        }
-                                                      }
-                                                    })
-                                                    .catch((error)=>{
-                                                      alert("มีปัญหา"+error);
-                                                    });
+                                                   alert("ตู้เต็มแล้ว!");
                                                 }
                                             }
                                         })
