@@ -477,6 +477,7 @@
           // Import the functions you need from the SDKs you need
           import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
           import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+          import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
         
@@ -496,12 +497,93 @@
           // Initialize Firebase
           const app = initializeApp(firebaseConfig);
           const analytics = getAnalytics(app);
+          
+
+          const phoneContainer = document.querySelector('.phone-container');
+          const authenticationMethod3 = document.getElementById('method3');
+          const verification__fields = document.getElementById('phoneNumber');
+          const codeField = document.getElementById('code');
+          const labels = document.getElementsByTagName('label');
+          const signInWithPhoneButton = document.getElementById('signInWithPhone');
+          const getCodeButton = document.getElementById('getCode');
+          const failureModal = document.querySelector('.failure');
+        
+          
+          const auth = firebase.auth();
+          const db = getDatabase();
+          const dbRef = ref(db);
+    
+          var checkphone = verification__fields.value;
+    
+          window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+    
+          recaptchaVerifier.render().then(widgetId => {
+            window.recaptchaWidgetId = widgetId;
+          })
+    
+          const sendVerificationCode = () => {
+          const phoneNumber = "+66"+verification__fields.value;
+           const appVerifier = window.recaptchaVerifier;
+    
+            auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+            .then(confirmationResult => {
+              const sentCodeId = confirmationResult.verificationId;
+              signInWithPhoneButton.addEventListener('click', () => signInWithPhone(sentCodeId));
+            })
+          }
+    
+          const signInWithPhone = sentCodeId => {
+            const code = codeField.value;
+            const credential = firebase.auth.PhoneAuthProvider.credential(sentCodeId, code);
+            auth.signInWithCredential(credential)
+            .then(() => {
+                //const dbRef = ref(db);
+                get(child(dbRef,"users/"+checkphone)).then((snapshot)=>{
+                  if(snapshot.exists()){
+                    localStorage.setItem("phone", verification__fields.value);
+                    window.location.assign('profile.html');
+                  }else{
+                    alert("เบอร์นี้ยังไม่ได้สมัครสมาชิก!");
+                  }
+                  })
+                .catch((error)=>{
+                  alert("มีปัญหา!"+error);
+                  location.reload();
+                });
+              //localStorage.setItem("phone", verification__fields.value);
+              //window.location.assign('profile.html');
+            })
+            .catch(error => {
+              console.error(error);
+            })
+          }
+          getCodeButton.addEventListener('click', sendVerificationCode);
+    
+          auth.onAuthStateChanged(user => {
+            if(user){
+            //const dbRef = ref(db);
+            get(child(dbRef,"users/"+checkphone)).then((snapshot)=>{
+              if(snapshot.exists()){
+                window.location.assign('profile.html');
+              }else{
+              //alert("เบอร์นี้ยังไม่ได้สมัครสมาชิก!");
+              checkphone = 0;
+              }
+              })
+            .catch((error)=>{
+              alert("มีปัญหา!"+error);
+              location.reload();
+            });
+              //window.location.assign('profile.html');
+            }
+          })
+    
         </script>  
     <!-- Initialize Firebase -->
     <script src="/__/firebase/init.js"></script>
         
     <script>
-      const phoneContainer = document.querySelector('.phone-container');
+     /* const phoneContainer = document.querySelector('.phone-container');
       const authenticationMethod3 = document.getElementById('method3');
       const verification__fields = document.getElementById('phoneNumber');
       const codeField = document.getElementById('code');
@@ -578,7 +660,7 @@
           //window.location.assign('profile.html');
         }
       })
-
+      */
     </script>
 </body>
 </html>
