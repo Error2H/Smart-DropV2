@@ -302,7 +302,7 @@
             outline: none;
             background-color: #243946;
             color: #fff;
-            font-size: 12px;
+            font-size: 10px;
           }
           .center .login .password-button:active {
             transform: scale(0.95);
@@ -477,6 +477,7 @@
           // Import the functions you need from the SDKs you need
           import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
           import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+          import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
         
@@ -496,6 +497,7 @@
           // Initialize Firebase
           const app = initializeApp(firebaseConfig);
           const analytics = getAnalytics(app);
+          const db = getDatabase();
         </script>  
     <!-- Initialize Firebase -->
     <script src="/__/firebase/init.js"></script>
@@ -509,10 +511,11 @@
       const signInWithPhoneButton = document.getElementById('signInWithPhone');
       const getCodeButton = document.getElementById('getCode');
       const failureModal = document.querySelector('.failure');
-      
+    
       const auth = firebase.auth();
 
-    
+      const checkphone = verification__fields.value;
+
       window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
 
       recaptchaVerifier.render().then(widgetId => {
@@ -520,7 +523,7 @@
       })
 
       const sendVerificationCode = () => {
-        const phoneNumber = "+66"+verification__fields.value;
+      const phoneNumber = "+66"+verification__fields.value;
        const appVerifier = window.recaptchaVerifier;
 
         auth.signInWithPhoneNumber(phoneNumber, appVerifier)
@@ -535,8 +538,21 @@
         const credential = firebase.auth.PhoneAuthProvider.credential(sentCodeId, code);
         auth.signInWithCredential(credential)
         .then(() => {
-          localStorage.setItem("phone", verification__fields.value);
-          window.location.assign('profile.html');
+            const dbRef = ref(db);
+            get(child(dbRef,"users/"+checkphone)).then((snapshot)=>{
+              if(snapshot.exists()){
+                localStorage.setItem("phone", verification__fields.value);
+                window.location.assign('profile.html');
+              }else{
+                alert("เบอร์นี้ยังไม่ได้สมัครสมาชิก!");
+              }
+              })
+            .catch((error)=>{
+              alert("มีปัญหา!"+error);
+              location.reload();
+            });
+          //localStorage.setItem("phone", verification__fields.value);
+          //window.location.assign('profile.html');
         })
         .catch(error => {
           console.error(error);
@@ -545,8 +561,21 @@
       getCodeButton.addEventListener('click', sendVerificationCode);
 
       auth.onAuthStateChanged(user => {
-        if(user)
-          window.location.assign('profile.html');
+        if(user){
+        const dbRef = ref(db);
+        get(child(dbRef,"users/"+checkphone)).then((snapshot)=>{
+          if(snapshot.exists()){
+            window.location.assign('profile.html');
+          }else{
+            //alert("เบอร์นี้ยังไม่ได้สมัครสมาชิก!");
+          }
+          })
+        .catch((error)=>{
+          alert("มีปัญหา!"+error);
+          location.reload();
+        });
+          //window.location.assign('profile.html');
+        }
       })
 
     </script>
