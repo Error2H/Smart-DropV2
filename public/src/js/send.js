@@ -1,4 +1,12 @@
 const Vonage = require('@vonage/server-sdk');
+const http = require('http')
+const fs = require('fs')
+const server = http.createServer((req, res) => {
+    res.writeHead(200, { 'content-type': 'text/html' })
+    fs.createReadStream('success.html').pipe(res)
+  })
+  
+  server.listen(process.env.PORT || 3000)
 
 const vonage = new Vonage({
   apiKey: "fc08ac25",
@@ -22,3 +30,5 @@ const vonage = new Vonage({
           }
       }
   })
+
+  

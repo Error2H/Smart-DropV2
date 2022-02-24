@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
@@ -9,7 +9,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
     templateUrl: './parcel-status.component.html',
     styleUrls: ['./css/index.scss']
 })
-export class ParcelStatusComponent implements OnInit {
+export class zxzxczxc implements OnInit {
 
     phoneNumber: FormGroup;
     receiver: any;
@@ -49,4 +49,4 @@ export class ParcelStatusComponent implements OnInit {
         this.receiver.update({ phoneNumber: this.e164 });
     }
 
-}
+}*/

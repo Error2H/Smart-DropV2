@@ -263,12 +263,15 @@
         import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
         const db = getDatabase();
 
-
+        
         var phone = document.getElementById("phone");
         var btnaccept = document.getElementById("sender");
         var number_sw = 1;
 
         function ChkLocker(){
+          const refDBphone = ref(db);
+        get(child(refDBphone,"users/"+phone.value)).then((p)=>{
+          if(p.exists()){
                 const lockerRef = ref(db);
                 get(child(lockerRef,"lockers/box1")).then((box1)=>{
                     if(box1.exists()){
@@ -340,6 +343,13 @@
                 .catch((error)=>{
                     alert("มีปัญหา"+error);
                 });
+              }else{
+                alert("เบอร์นี้ยังไม่ได้สมัครสมาชิก!");
+              }
+            })
+            .catch((error)=>{
+              alert("มีปัญหา"+error);
+            });
         }
 
         //Events button
