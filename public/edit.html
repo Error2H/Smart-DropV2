@@ -166,12 +166,16 @@
             <!--https://www.visualpharm.com/free-icon-->
           </div>
           <div>
-            <h3>แก้ไขผู้ใช้ชื่อ : <label id="displayNameHolder">ผู้ใช้งาน</label></h3>
-            <input type="text" id="displayName" name="displayName" placeholder="ชื่อ"/>
+            <h3>แก้ไขผู้ใช้ชื่อ : <label id="firstname">ผู้ใช้งาน</label></h3>
+            <input type="text" id="first" name="first" placeholder="ชื่อ"/>
+            <h3>แก้ไขผู้ใช้นามสกุล : <label id="lastname">ผู้ใช้งาน</label></h3>
+            <input type="text" id="last" name="last" placeholder="นามสกุล"/>
+            <h3>แก้ไขผู้ใช้อีเมล : <label id="email">ผู้ใช้งาน</label></h3>
+            <input type="text" id="ema" name="ema" placeholder="อีเมล"/>
             <br> <br> <br>
+            <button class="primary green" id="edit">ยืนยัน</button>
+            <a href="profile.html"><button class="primary yellow">ย้อนกลับ</button></a>
           </div>
-          <button class="primary green" id="edit">ยืนยัน</button>
-          <button class="primary yellow" id="back">ย้อนกลับ</button>
       </section>
     </main>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -203,9 +207,60 @@
           // Initialize Firebase
           const app = initializeApp(firebaseConfig);
           const analytics = getAnalytics(app);
+          import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+          const db = getDatabase();
+          
+        var phonechk = localStorage.getItem("phone");
+        var firstname = document.getElementById("firstname");
+        var lastname = document.getElementById("lastname");
+        var email = document.getElementById("email");
+
+        var firstbox = document.getElementById("first");
+        var lastbox = document.getElementById("last");
+        var emabox = document.getElementById("ema");
+
+        var editerbtn = document.getElementById("edit");
+
+        const refdb = ref(db); 
+
+        //getname
+        get(child(refdb,"users/"+phonechk)).then((p1)=>{
+          if(p1.exists()){
+            //alert(phonechk);
+            firstname.innerHTML = p1.val().firstname;
+            lastname.innerHTML = p1.val().lastname;
+            email.innerHTML = p1.val().email;
+          }
+        })
+        .catch((error)=>{
+          alert(error);
+        });
+
+        function EditData(){
+          if(firstbox.value != "" && lastbox.value != "" && emabox.value != ""){
+            update(ref(db,"users/"+phonechk),{
+              email: emabox.value,
+              firstname: firstbox.value,
+              lastname: lastbox.value
+            })
+            .then(()=>{
+              alert("เปลี่ยนข้อมูลเสร็จสิ้น!");
+              window.location.assign('profile.html');
+            })
+            .catch((error)=>{
+              alert(error);
+            });
+          }else{
+            alert("กรุณากรอกข้อมูลให้ครบ!");
+          }
+        }
+
+        editerbtn.addEventListener('click',EditData);
+
         </script>
-    <!-- Initialize Firebase -->
+    <!-- Initialize Firebase 
     <script src="/__/firebase/init.js"></script>
     <script src="./src/js/edit.js"></script>
+    -->
   </body>
 </html>

@@ -124,11 +124,12 @@
     </style>
 </head>
 <body>
+
   <div class="card-container">
     <!--<span class="pro">PRO</span> -->
     <img id ="photoHolder" src="./src/img/avatar.png" alt="Profile picture">
     <h1 style="margin-top: -20px !important;">Smart Drop</h1>
-    <h3>ยินดีต้อนรับ : <label id="displayNameHolder">ผู้ใช้งาน</label></h3>
+    <h3>ยินดีต้อนรับ : <label id="fullname">ผู้ใช้งาน</label></h3>
     <p id="displayphoneNumber"></p>
       <p id="phone"></p>
     <div class="buttons">
@@ -206,8 +207,20 @@
         var box3btn = document.getElementById("box3");
         //var box4btn = document.getElementById("box4");
         var textempty = document.getElementById("textempty");
+        var fullname = document.getElementById("fullname");
         //document.getElementById("phone").innerHTML = phonereplace;
         const refdb = ref(db); 
+
+        //getname
+        get(child(refdb,"users/"+phonechk)).then((p1)=>{
+          if(p1.exists()){
+            fullname.innerHTML = p1.val().firstname+" "+p1.val().lastname;
+          }
+        })
+        .catch((error)=>{
+          alert(error);
+        });
+
         // btn box1
         get(child(refdb,"lockers/box1")).then((box1)=>{
           if(box1.exists()){
