@@ -83,10 +83,10 @@
           const form = event.target;
           const to = form.querySelector('[name=to]').value;
           const msg = form.querySelector('[name=msg]').value;
-          const result = await fetch("https://sms77io.p.rapidapi.com/sms", {
+          const result = await fetch("https://api-v2.thaibulksms.com/sms", {
             "method": "POST",
             "headers": {
-              "x-rapidapi-host": "sms77io.p.rapidapi.com",
+              "x-rapidapi-host": "api-v2.thaibulksms.com",
               "x-rapidapi-key": "7ee5746e43msh136e5ff7acf8d36p1e7b84jsneff49711006c",
               "content-type": "application/json"
             },
@@ -106,3 +106,6 @@
 </body>
 
 </html>
+
+b1dc0e7789b08ca2d64887111708a9d3
+Secret : 5460ed80a8acd7a843a332966fe93814

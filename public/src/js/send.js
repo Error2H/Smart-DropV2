@@ -22,7 +22,7 @@ const vonage = new Vonage({
       if (err) {
           console.log(err);
       } else {
-          if(responseData.messages[0]['status'] === "0") {
+          if(responseData.messages[0]['status'] == "0") {
               console.log("Message sent successfully.");
               window.location.href = './index.html';
           } else {
