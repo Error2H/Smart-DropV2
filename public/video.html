@@ -26,7 +26,7 @@
       left: 48%;
       display: inline-block;
       width: 355px;
-      height: 585px;
+      height: 680px;
       border-radius: 15px;
       transform: translate(-50%, -50%);
       overflow: hidden;
@@ -47,7 +47,7 @@
     h1,
     h2,
     h3 {
-      color: #fff;
+      color: rgb(36, 36, 36);
     }
     
     h1 {
@@ -204,23 +204,18 @@
       .input-active label {
         transform: scale(0.7, 0.7) translate(0, -10px);
       }
-      
 </style>
 <body>
     
     <div class="center">
         <center>
-        <h1>Smart Drop</h1>
-        <p>
-            - โปรดถ่ายรูปหน้าของคุณ
-        </p>
-
+        <h1>ถ่ายรูปหน้าของคุณ</h1>
         <button id="start-camera" class="btn green">เริ่มถ่ายรูป</button>
         <button id="click-photo" class="btn green">ตกลง</button>
         <button id="save-photo" class="btn green">บันทึก</button>
+        <video id="video" width="200px" height="300px" style="position:relative;" autoplay></video>
+        <canvas id="canvas" style="position: relative; width:200px; height:280px !important"></canvas>
         <a href="index.html"><button class="btn backbtn" >ย้อนกลับ</button></a>
-        <video id="video" width="100%" height="100%" style="position: fixed;" autoplay></video>
-        <canvas id="canvas" width="100%" height="100%" style="position: fixed;"></canvas>
       </div>
     </center>
    
@@ -252,10 +247,10 @@
         const db = getDatabase();
 
         import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } 
-        from "https://www.gstatic.com/firebasejs/9.6.8/firebase-storage.js";
+        from "https://www.gstatic.com/firebasejs/9.6.3/firebase-storage.js";
 
         import {getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField}
-        from "https://www.gstatic.com/firebasejs/9.6.8/firebase-firestore.js";
+        from "https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js";
 
         //variables
         let camera_button = document.getElementById('start-camera');
@@ -279,7 +274,7 @@ camera_button.addEventListener('click', async function() {
     camera_button.style.display = "none";
     canvas.style.display = "none";
     click_button.style.display = "inline";
-    video.style.display="inline";
+    video.style.display="block";
 });
 
     //take camera
@@ -291,13 +286,12 @@ click_button.addEventListener('click', function() {
     camera_button.style.display = "inline";
     save_button.style.display = "inline";
     video.style.display="none";
-    canvas.style.display = "inline";
+    canvas.style.display = "block";
     click_button.style.display="none";
     camera_button.innerHTML = "เริ่มถ่ายรูปใหม่";
 });
     //save photo
 save_button.addEventListener('click', function() {
-    console.log(localStorage.getItem("canvas"));
        const storage = getStorage();
        const storageRef = sRef(storage,"Images/"+name);
        canvas.toBlob(function(blob){

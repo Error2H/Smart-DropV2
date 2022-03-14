@@ -353,6 +353,10 @@
   
           import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
           const db = getDatabase();
+
+          import {getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField}
+          from "https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js";
+          const dbfirestore = getFirestore();
           
           /*
           const vonage = new Vonage({
@@ -379,23 +383,90 @@
             })
           
             */
-          </script>
 
-  <script>
-    var numbers = localStorage.getItem("num");
+
+
+
+            var numbers = localStorage.getItem("num");
     var box = localStorage.getItem("box");
     var phonenum = localStorage.getItem("phoneNumber");
+    var imgnames = localStorage.getItem("canvas");
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = String(today.getFullYear());
+    var day = dd+' '+mm+' '+yyyy;
     var websiteburl = localStorage.getItem("websiteburl")
     console.log(numbers + box + phonenum + websiteburl);
-    
+
+    async function Add_AutoID(){
+        //add
+        var ref = collection(dbfirestore,"HistorySend");
+        const docRef = await addDoc(
+        ref,{
+            ImgName: imgnames,
+            Phone: phonenum,
+            Date: day
+        }
+        )
+        .then(()=>{
+        alert("success");
+        })
+        .catch((error)=>{
+        alert("error"+error);
+        });
+      }
+
     setTimeout(function () {
+      Add_AutoID();
       window.location.href =
         'https://www.thsms.com/api/rest?username=watthachai&password=P87x8Gbi74G@Qw4&method=send&from=Noted&to=' +
         localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("websiteburl") + '', 3000;
       location.replace('https://smartdrop-itlp2022.firebaseapp.com/');
     }, 5000);
     //TODO: ยังมีอีกเว็ปอื่นที่สามารถทำแบบนี้ได้ โน็ตไว้เผื่อลืม
+          </script>
 
+  <script>
+    /*var numbers = localStorage.getItem("num");
+    var box = localStorage.getItem("box");
+    var phonenum = localStorage.getItem("phoneNumber");
+    var imgnames = localStorage.getItem("canvas");
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = String(today.getFullYear());
+    var day = dd+' '+mm+' '+yyyy;
+    var websiteburl = localStorage.getItem("websiteburl")
+    console.log(numbers + box + phonenum + websiteburl);
+
+    async function Add_AutoID(){
+        //add
+        var ref = collection(dbfirestore,"HistorySend");
+        const docRef = await addDoc(
+        ref,{
+            ImgName: imgnames,
+            Phone: phonenum,
+            Date: day
+        }
+        )
+        .then(()=>{
+        alert("success");
+        })
+        .catch((error)=>{
+        alert("error"+error);
+        });
+      }
+
+    setTimeout(function () {
+      Add_AutoID();
+      window.location.href =
+        'https://www.thsms.com/api/rest?username=watthachai&password=P87x8Gbi74G@Qw4&method=send&from=Noted&to=' +
+        localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("websiteburl") + '', 3000;
+      location.replace('https://smartdrop-itlp2022.firebaseapp.com/');
+    }, 5000);
+    //TODO: ยังมีอีกเว็ปอื่นที่สามารถทำแบบนี้ได้ โน็ตไว้เผื่อลืม
+*/
   </script>
 </body>
 
