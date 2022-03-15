@@ -392,38 +392,42 @@
     var box = localStorage.getItem("box");
     var phonenum = localStorage.getItem("phoneNumber");
     var imgnames = localStorage.getItem("canvas");
+    var iddoc = Date.now();
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = String(today.getFullYear());
     var hours = String(today.getHours()).padStart(2, '0');
     var minutes = String(today.getMinutes()).padStart(2, '0');
-    var day = dd+'/'+mm+'/'+yyyy+" เวลา "+hours+":"+minutes;
+    var day = dd+'/'+mm+'/'+yyyy;
+    var times = hours+":"+minutes;
     var websiteburl = localStorage.getItem("websiteburl")
     console.log(numbers + box + phonenum + websiteburl);
 
-    async function Add_AutoID(){
+    async function Add_Doc(){
         //add
-        var ref = collection(dbfirestore,"HistorySend");
-        const docRef = await addDoc(
+        var ref = doc(dbfirestore,"HistorySend",iddoc);
+        const docRef = await setDoc(
         ref,{
             ImgName: imgnames,
             Phone: phonenum,
-            Date: day
+            Date: day,
+            Time: times
         }
         )
         .then(()=>{
-          sendSmsVonage();
         alert("success");
         })
         .catch((error)=>{
         alert("error"+error);
         });
+        var webname = "https://smartdrop-itlp2022.web.app/infodata.html?id="+iddoc;
+        console.log(webname);
       }
 
     setTimeout(function () {
-      Add_AutoID();
-      admin.firestore().collection('messages').add({
+      Add_Doc();
+     admin.firestore().collection('messages').add({
         to: '+66803131282',
         body: 'Hello from Firebase!'
       });

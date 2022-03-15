@@ -294,7 +294,8 @@ video.addEventListener('play', () => {
     }else{
       //console.log("Yes");
       img.getContext('2d').drawImage(video, 0, 0, img.width, img.height);
-      img.style.display="none";
+      //img.style.display="none";
+      video.style.display = "none";
       const storage = getStorage();
        const storageRef = sRef(storage,"Images/"+name);
        img.toBlob(function(blob){
