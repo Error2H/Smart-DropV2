@@ -396,7 +396,9 @@
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = String(today.getFullYear());
-    var day = dd+' '+mm+' '+yyyy;
+    var hours = String(today.getHours()).padStart(2, '0');
+    var minutes = String(today.getMinutes()).padStart(2, '0');
+    var day = dd+'/'+mm+'/'+yyyy+" เวลา "+hours+":"+minutes;
     var websiteburl = localStorage.getItem("websiteburl")
     console.log(numbers + box + phonenum + websiteburl);
 

@@ -205,16 +205,17 @@
         transform: scale(0.7, 0.7) translate(0, -10px);
       }
 </style>
+<script defer src="src/js/face-api.min.js"></script>
 <body>
     
     <div class="center">
         <center>
-        <h1>กรุณาแสดงหน้าของคุณ</h1>
+        <h1>กรุณาแสดงหน้าของคุณสักครู่</h1>
         <!--<button id="start-camera" class="btn green">เริ่มถ่ายรูป</button>-->
         <!--<button id="click-photo" class="btn green">ตกลง</button>-->
         <!--<button id="save-photo" class="btn green">บันทึก</button>-->
-        <video id="video" width="200px" height="300px" style="position:relative;" autoplay></video>
-        <canvas id="canvas" style="position: relative; width:200px; height:280px !important"></canvas>
+        <video id="video" width="300" height="400" style="position:relative;" autoplay></video>
+        <canvas id="canvas" style="position: relative;" width="300px" height="400"></canvas>
         <!--<a href="index.html"><button class="btn backbtn" >ย้อนกลับ</button></a>-->
       </div>
     </center>
@@ -249,12 +250,11 @@
         import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } 
         from "https://www.gstatic.com/firebasejs/9.6.3/firebase-storage.js";
 
-        import {getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField}
-        from "https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js";
 
         //variables
         let camera_button = document.getElementById('start-camera');
         let video = document.getElementById('video');
+        //let video_og = document.getElementById('video');
         let click_button = document.getElementById('click-photo');
         let save_button = document.getElementById('save-photo');
         let img = document.getElementById('canvas');
@@ -263,10 +263,10 @@
 
         //face detection
         Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models')
+  faceapi.nets.tinyFaceDetector.loadFromUri('src/js/models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('src/js/models'),
+  faceapi.nets.faceRecognitionNet.loadFromUri('src/js/models'),
+  faceapi.nets.faceExpressionNet.loadFromUri('src/js/models')
 ]).then(startVideo)
 
 function startVideo() {
@@ -290,10 +290,10 @@ video.addEventListener('play', () => {
     faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
     faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     if(detections == 0){
-      console.log("NO");
+      //console.log("NO");
     }else{
-      console.log("Yes");
-      img.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      //console.log("Yes");
+      img.getContext('2d').drawImage(video, 0, 0, img.width, img.height);
       img.style.display="none";
       const storage = getStorage();
        const storageRef = sRef(storage,"Images/"+name);
@@ -304,9 +304,9 @@ video.addEventListener('play', () => {
         const uploadTask = uploadBytesResumable(storageRef, blob, metaData);
         localStorage.setItem("canvas",name);
         window.location.assign('loading.html');
-        }); 
+        });
     }
-  }, 100)
+  }, 1500)
 })
 
 
