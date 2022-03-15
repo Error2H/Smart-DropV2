@@ -209,13 +209,13 @@
     
     <div class="center">
         <center>
-        <h1>ถ่ายรูปหน้าของคุณ</h1>
-        <button id="start-camera" class="btn green">เริ่มถ่ายรูป</button>
-        <button id="click-photo" class="btn green">ตกลง</button>
-        <button id="save-photo" class="btn green">บันทึก</button>
+        <h1>กรุณาแสดงหน้าของคุณ</h1>
+        <!--<button id="start-camera" class="btn green">เริ่มถ่ายรูป</button>-->
+        <!--<button id="click-photo" class="btn green">ตกลง</button>-->
+        <!--<button id="save-photo" class="btn green">บันทึก</button>-->
         <video id="video" width="200px" height="300px" style="position:relative;" autoplay></video>
         <canvas id="canvas" style="position: relative; width:200px; height:280px !important"></canvas>
-        <a href="index.html"><button class="btn backbtn" >ย้อนกลับ</button></a>
+        <!--<a href="index.html"><button class="btn backbtn" >ย้อนกลับ</button></a>-->
       </div>
     </center>
    
@@ -257,17 +257,69 @@
         let video = document.getElementById('video');
         let click_button = document.getElementById('click-photo');
         let save_button = document.getElementById('save-photo');
-        let canvas = document.getElementById('canvas');
+        let img = document.getElementById('canvas');
         var name = Date.now()+'.png';
 
+
+        //face detection
+        Promise.all([
+  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+  faceapi.nets.faceExpressionNet.loadFromUri('/models')
+]).then(startVideo)
+
+function startVideo() {
+  navigator.getUserMedia(
+    { video: {} },
+    stream => video.srcObject = stream,
+    err => console.error(err)
+  )
+}
+
+video.addEventListener('play', () => {
+  const canvas = faceapi.createCanvasFromMedia(video)
+  document.body.append(canvas)
+  const displaySize = { width: video.width, height: video.height }
+  faceapi.matchDimensions(canvas, displaySize)
+  setInterval(async () => {
+    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
+    const resizedDetections = faceapi.resizeResults(detections, displaySize)
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+    faceapi.draw.drawDetections(canvas, resizedDetections)
+    faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+    faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+    if(detections == 0){
+      console.log("NO");
+    }else{
+      console.log("Yes");
+      img.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+      img.style.display="none";
+      const storage = getStorage();
+       const storageRef = sRef(storage,"Images/"+name);
+       img.toBlob(function(blob){
+        const metaData = {
+          contentType: 'image/png'
+        }
+        const uploadTask = uploadBytesResumable(storageRef, blob, metaData);
+        localStorage.setItem("canvas",name);
+        window.location.assign('loading.html');
+        }); 
+    }
+  }, 100)
+})
+
+
+
+
         //set hiden
-        click_button.style.display = "none";
+        /*click_button.style.display = "none";
         save_button.style.display = "none";
         canvas.style.display = "none";
-        video.style.display = "none";
+        video.style.display = "none";*/
 
         //open Camera
-camera_button.addEventListener('click', async function() {
+/*camera_button.addEventListener('click', async function() {
    	let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
 	video.srcObject = stream;
     save_button.style.display = "none";
@@ -303,7 +355,7 @@ save_button.addEventListener('click', function() {
         window.location.assign('loading.html');
         }); 
    	// data url of the image
-});
+});*/
         
         
       </script>

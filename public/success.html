@@ -88,7 +88,7 @@
       position: absolute;
       width: 35%;
       height: 100%;
-      left: 25%;
+      left: 25.4%;
       justify-content: center;
       background: linear-gradient(to bottom right, #B0DB7D 40%, #99DBB4 100%);
       border-radius: 20px;
@@ -302,6 +302,7 @@
     footer a:hover {
       color: #FFC39E;
     }
+
   </style>
 </head>
 
@@ -387,7 +388,7 @@
 
 
 
-            var numbers = localStorage.getItem("num");
+    var numbers = localStorage.getItem("num");
     var box = localStorage.getItem("box");
     var phonenum = localStorage.getItem("phoneNumber");
     var imgnames = localStorage.getItem("canvas");
@@ -410,6 +411,7 @@
         }
         )
         .then(()=>{
+          sendSmsVonage();
         alert("success");
         })
         .catch((error)=>{
@@ -419,12 +421,42 @@
 
     setTimeout(function () {
       Add_AutoID();
-      window.location.href =
+      admin.firestore().collection('messages').add({
+        to: '+66803131282',
+        body: 'Hello from Firebase!'
+      });
+    })
+      /*window.location.href =
         'https://www.thsms.com/api/rest?username=watthachai&password=P87x8Gbi74G@Qw4&method=send&from=Noted&to=' +
-        localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("websiteburl") + '', 3000;
-      location.replace('https://smartdrop-itlp2022.firebaseapp.com/');
-    }, 5000);
+        localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("websiteburl") + '', 1000;
+      window.location.replace = ('https://smartdrop-itlp2022.firebaseapp.com/');
+    }, 2000);
     //TODO: ยังมีอีกเว็ปอื่นที่สามารถทำแบบนี้ได้ โน็ตไว้เผื่อลืม
+    import sendSmsVonage from './src/js/send.js';
+    const Vonage = require('@vonage/server-sdk');
+    const vonage = new Vonage({
+      apiKey: "fc08ac25",
+      apiSecret: "Qyk8afSO8z023qLY"
+    });
+    
+      const from = "Smart Drop";
+      const to = localStorage.getItem("phoneNumber");
+      const text = 'พัสดุของท่านได้รับการฝากไว้แล้ว';
+    
+    
+      vonage.message.sendSms(from, to, text, (err, responseData) => {
+          if (err) {
+              console.log(err);
+          } else {
+              if(responseData.messages[0]['status'] == "0") {
+                  console.log("Message sent successfully.");
+                  window.location.href = './index.html';
+              } else {
+                  console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+              }
+          }
+      })*/
+    
           </script>
 
   <script>

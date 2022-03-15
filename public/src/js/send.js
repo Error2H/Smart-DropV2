@@ -6,7 +6,7 @@ const vonage = new Vonage({
 });
 
   const from = "Smart Drop";
-  const to = phoneNumber();
+  const to = "+660803131282";
   const text = 'พัสดุของท่านได้รับการฝากไว้แล้ว';
 
 
@@ -22,5 +22,3 @@ const vonage = new Vonage({
           }
       }
   })
-
-  
