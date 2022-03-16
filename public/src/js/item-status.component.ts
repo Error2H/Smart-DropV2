@@ -3,14 +3,14 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Validators, FormGroups, FormBuilder } from '@angular/forms';
 
 @Component({
-    selector: 'public/src/js',
-    templateUrl: './item-status.component.html',
-    styleUrls: ['./item-status.component.scss']
+selector: 'public/src/js',
+templateUrl: './item-status.component.html',
+styleUrls: ['./item-status.component.scss']
 })
 export class ItemStatusComponent implements OnInit {
 
-    numberForm: FormGroup;
+numberForm: FormGroup;
 
-    constructor() { }
-    ngOnInit() { }
+constructor() { }
+ngOnInit() { }
 }
