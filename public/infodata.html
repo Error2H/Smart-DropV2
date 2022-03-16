@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>รายละเอียด | Smart Drop</title>
+</head>
+<style media="screen">
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  * {
+      box-sizing: border-box;
+      font-family: 'Kanit', sans-serif !important;
+    }body {
+      width: 100vw;
+      height: 100vh;
+      background-color: #e0e0e0;
+      overflow: hidden;
+      font-size: 14px;
+      font-family: 'Kanit', sans-serif !important;
+    }
+    .center {
+      position: relative;
+      top: 50%;
+      left: 48%;
+      display: inline-block;
+      width: 355px;
+      height: 585px;
+      border-radius: 15px;
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+      background-image: linear-gradient(to top right, #fdbb76, #f0dca7);
+    }
+    @media screen and (max-height: 500px) {
+      .center {
+        transition: transform 0.5s;
+        transform: translate(-50%, -50%) scale(0.8);
+      }
+    }
+    .main {
+      width: 800px;
+      margin: 160px auto;
+      text-align: center;
+    }
+    
+    h1,
+    h2,
+    h3 {
+      color: rgb(51, 43, 43);
+    }
+    
+    h1 {
+      margin-bottom: 30px;
+      font-size: 44px;
+    }
+    
+    h2 {
+      margin-bottom: 20px;
+      font-size: 32px;
+    }
+    
+    h3 {
+      font-size: 21px;
+    }
+    
+    p {
+      font-size: 18px;
+      color: #293554;
+    }
+    
+    .btn {
+      margin: 30px 5px;
+      padding: 2.2% 5.5%;
+      display: inline-block;
+      -webkit-transition: all linear 0.15s;
+      transition: all linear 0.15s;
+      border-radius: 10px;
+      background-color: #2e773a !important;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: rgb(255, 255, 255);
+    }
+
+    .backbtn {
+        margin-top: 30px;
+      display: inline-block;
+      -webkit-transition: all linear 0.15s;
+      transition: all linear 0.15s;
+      border-radius: 10px;
+      background-color: #435469 !important;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: rgb(255, 255, 255);
+    }
+    .btn:hover {
+      opacity: 0.75;
+      color: #000000;
+    }
+    
+    .popup-wrap {
+      width: 100%;
+      height: 100%;
+      display: none;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      content: "";
+      background: rgba(0, 0, 0, 0.85);
+    }
+    
+    .popup-box {
+      width: 400px;
+      padding: 70px;
+      transform: translate(-50%, -50%) scale(0.5);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
+      border-radius: 3px;
+      background: #fff;
+      text-align: center;
+    }
+    .popup-box h2 {
+      color: #1a1a1a;
+    }
+    .popup-box h3 {
+      color: #888;
+    }
+    .popup-box .close-btn {
+      width: 35px;
+      height: 35px;
+      display: inline-block;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      -webkit-transition: all ease 0.5s;
+      transition: all ease 0.5s;
+      border-radius: 1000px;
+      background: #d75f70;
+      font-weight: bold;
+      text-decoration: none;
+      color: #fff;
+      line-height: 190%;
+    }
+    .popup-box .close-btn:hover {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+    
+    .transform-in,
+    .transform-out {
+      display: block;
+      -webkit-transition: all ease 0.5s;
+      transition: all ease 0.5s;
+    }
+    
+    .transform-in {
+      -webkit-transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .transform-out {
+      -webkit-transform: translate(-50%, -50%) scale(0.5);
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    input {
+        position: relative;
+        margin: 16px 0;
+        font-size: 28px !important;
+      }
+      
+     .input label {
+        position: absolute;
+        top: 16px;
+        left: 20px;
+        font-weight: 500;
+        color: var(--grey-400);
+        pointer-events: none;
+        transform-origin: top left;
+        transition: transform 200ms;
+      }
+      
+       input{
+        padding: 24px 20px 14px 20px;
+        width: 85%;
+        outline: none;
+        border: none;
+        font-size: 16px;
+        border-radius: 8px;
+        background: #ffffff;
+        transition: background-color 160ms;
+      }
+      
+      input:focus {
+        background: #c7ddfa;
+      }
+      
+      .input-active label {
+        transform: scale(0.7, 0.7) translate(0, -10px);
+      }
+</style>
+<body>
+    
+    <div class="center">
+        <center>
+        <h1>รายละเอียด</h1>
+            <img id="img">
+            <label id="datesend"></label>
+            <label id="phoneuser"></label>
+        <a href="index.html"><button class="btn backbtn" >ย้อนกลับ</button></a>
+      </div>
+    </center>
+    <script>
+        $(document).ready(function() {
+            $('.popup-btn').click(function(e) {
+              $('.popup-wrap').fadeIn(500);
+              $('.popup-box').removeClass('transform-out').addClass('transform-in');
+          
+              e.preventDefault();
+            });
+          
+            $('.popup-close').click(function(e) {
+              $('.popup-wrap').fadeOut(500);
+              $('.popup-box').removeClass('transform-in').addClass('transform-out');
+          
+              e.preventDefault();
+            });
+          });
+    </script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyBGHYVjtQNRZIvb0rhUeV6g0ByVAGmidmQ",
+            authDomain: "smartdrop-itlp2022.firebaseapp.com",
+            databaseURL: "https://smartdrop-itlp2022-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "smartdrop-itlp2022",
+            storageBucket: "smartdrop-itlp2022.appspot.com",
+            messagingSenderId: "68583609225",
+            appId: "1:68583609225:web:c14789335702c55eb60758",
+            measurementId: "G-88E68YDK6M"
+          };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        import {getDatabase, ref, set, get, child, update, remove} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+        const db = getDatabase();
+
+        import {getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField}
+        from "https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js";
+        const dbfirestore = getFirestore();
+
+        let img = document.getElementById('img');
+        let phone = document.getElementById('phoneuser');
+        let date = document.getElementById('datesend')
+        
+          
+      </script>
+      <script src="js/bootstrap.js"></script>
+</body>
+</html>
