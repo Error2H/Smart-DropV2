@@ -392,6 +392,7 @@
     var box = localStorage.getItem("box");
     var phonenum = localStorage.getItem("phoneNumber");
     var imgnames = localStorage.getItem("canvas");
+    var urlimg = localStorage.getItem("url");
     var iddoc = Date.now();
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -401,38 +402,43 @@
     var minutes = String(today.getMinutes()).padStart(2, '0');
     var day = dd+'/'+mm+'/'+yyyy;
     var times = hours+":"+minutes;
-    var websiteburl = localStorage.getItem("websiteburl")
-    console.log(numbers + box + phonenum + websiteburl);
+  
+    
+    var webname = "https://smartdrop-itlp2022.web.app/infodata.html?id="+iddoc;
+    localStorage.setItem("webname",webname);
+    console.log(numbers + box + phonenum + webname);
 
     async function Add_Doc(){
         //add
-        var ref = doc(dbfirestore,"HistorySend",iddoc);
+        var ref = doc(dbfirestore,"HistorySend",iddoc.toString());
         const docRef = await setDoc(
         ref,{
             ImgName: imgnames,
+            URLimg: urlimg,
             Phone: phonenum,
             Date: day,
             Time: times
         }
         )
-        .then(()=>{
-        alert("success");
-        })
-        .catch((error)=>{
-        alert("error"+error);
-        });
-        var webname = "https://smartdrop-itlp2022.web.app/infodata.html?id="+iddoc;
-        console.log(webname);
       }
-
-    setTimeout(function () {
+      Add_Doc();
+        //Add_Doc();
+        setTimeout(function () {
+          //let web = webname;
+          window.open(
+            'https://www.thsms.com/api/rest?username=watthachai&password=P87x8Gbi74G@Qw4&method=send&from=Noted&to=' +
+            localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("webname") + '',
+          '_blank'); // <- This is what makes it open in a new window.
+        }, 3000)
+        
+    /*setTimeout(function () {
       Add_Doc();
      admin.firestore().collection('messages').add({
         to: '+66803131282',
         body: 'Hello from Firebase!'
       });
     })
-      /*window.location.href =
+      window.location.href =
         'https://www.thsms.com/api/rest?username=watthachai&password=P87x8Gbi74G@Qw4&method=send&from=Noted&to=' +
         localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("websiteburl") + '', 1000;
       window.location.replace = ('https://smartdrop-itlp2022.firebaseapp.com/');
@@ -464,48 +470,6 @@
       })*/
     
           </script>
-
-  <script>
-    /*var numbers = localStorage.getItem("num");
-    var box = localStorage.getItem("box");
-    var phonenum = localStorage.getItem("phoneNumber");
-    var imgnames = localStorage.getItem("canvas");
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = String(today.getFullYear());
-    var day = dd+' '+mm+' '+yyyy;
-    var websiteburl = localStorage.getItem("websiteburl")
-    console.log(numbers + box + phonenum + websiteburl);
-
-    async function Add_AutoID(){
-        //add
-        var ref = collection(dbfirestore,"HistorySend");
-        const docRef = await addDoc(
-        ref,{
-            ImgName: imgnames,
-            Phone: phonenum,
-            Date: day
-        }
-        )
-        .then(()=>{
-        alert("success");
-        })
-        .catch((error)=>{
-        alert("error"+error);
-        });
-      }
-
-    setTimeout(function () {
-      Add_AutoID();
-      window.location.href =
-        'https://www.thsms.com/api/rest?username=watthachai&password=P87x8Gbi74G@Qw4&method=send&from=Noted&to=' +
-        localStorage.getItem("phoneNumber") + '&message=พัสดุของท่านได้ฝากไว้ที่ตู้หมายเลข ' + localStorage.getItem("num") + ' แล้ว เช็ครายละเอียดได้ที่ ' + localStorage.getItem("websiteburl") + '', 3000;
-      location.replace('https://smartdrop-itlp2022.firebaseapp.com/');
-    }, 5000);
-    //TODO: ยังมีอีกเว็ปอื่นที่สามารถทำแบบนี้ได้ โน็ตไว้เผื่อลืม
-*/
-  </script>
 </body>
 
 </html>

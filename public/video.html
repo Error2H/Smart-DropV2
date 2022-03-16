@@ -290,9 +290,9 @@ video.addEventListener('play', () => {
     faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
     faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     if(detections == 0){
-      //console.log("NO");
+      console.log("NO");
     }else{
-      //console.log("Yes");
+      console.log("Yes");
       img.getContext('2d').drawImage(video, 0, 0, img.width, img.height);
       //img.style.display="none";
       video.style.display = "none";
@@ -303,8 +303,23 @@ video.addEventListener('play', () => {
           contentType: 'image/png'
         }
         const uploadTask = uploadBytesResumable(storageRef, blob, metaData);
-        localStorage.setItem("canvas",name);
-        window.location.assign('loading.html');
+
+        uploadTask.on('state-changed', (snapshot) =>{
+
+        },
+        (error) =>{
+          alert(error);
+        },
+        ()=>{
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
+            //console.log(downloadURL);
+            localStorage.setItem("url",downloadURL);
+            console.log(localStorage.getItem("url"));
+            localStorage.setItem("canvas",name);
+            window.location.assign('loading.html');
+          })
+        }
+        ); 
         });
     }
   }, 1500)
