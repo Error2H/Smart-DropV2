@@ -312,6 +312,7 @@ video.addEventListener('play', () => {
         },
         ()=>{
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
+            var number_sw = 1;
             //console.log(downloadURL);
             localStorage.setItem("url",downloadURL);
             localStorage.setItem("canvas",name);
@@ -320,7 +321,7 @@ video.addEventListener('play', () => {
                     if(box1.exists()){
                         if(box1.val().status_item== 0){
                             update(ref(db,"lockers/box1"),{
-                                owner_p: phone.value,
+                                owner_p: localStorage.getItem("phoneNumber"),
                                 status_sw: number_sw
                             })
                             .then(()=>{
@@ -337,7 +338,7 @@ video.addEventListener('play', () => {
                                 if(box2.exists()){
                                     if(box2.val().status_item==0){
                                         update(ref(db,"lockers/box2"),{
-                                        owner_p: phone.value,
+                                        owner_p: localStorage.getItem("phoneNumber"),
                                         status_sw: number_sw
                                     })
                                     .then(()=>{
@@ -354,7 +355,7 @@ video.addEventListener('play', () => {
                                             if(box3.exists()){
                                                 if(box3.val().status_item==0){
                                                     update(ref(db,"lockers/box3"),{
-                                                    owner_p: phone.value,
+                                                    owner_p: localStorage.getItem("phoneNumber"),
                                                     status_sw: number_sw
                                                 })
                                                 .then(()=>{
